@@ -1,0 +1,87 @@
+[gd_scene load_steps=2 format=3 uid="uid://5v1gvjypqylk"]
+
+[sub_resource type="GDScript" id="GDScript_el6ah"]
+resource_name = "Handles"
+script/source = "extends Control
+
+
+
+func _on_right_gui_input(event):
+	pass # Replace with function body.
+
+func _on_bottom_gui_input(event):
+	pass # Replace with function body.
+
+func _on_corner_gui_input(event):
+	pass # Replace with function body.
+"
+
+[node name="Main-Matrix-client" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="layout" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TopBar" type="PanelContainer" parent="layout"]
+layout_mode = 2
+
+[node name="Content" type="Control" parent="layout"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Handles" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = SubResource("GDScript_el6ah")
+
+[node name="Right" type="Control" parent="Handles"]
+custom_minimum_size = Vector2(5, 5)
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Bottom" type="Control" parent="Handles"]
+custom_minimum_size = Vector2(5, 5)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Corner" type="Control" parent="Handles"]
+custom_minimum_size = Vector2(5, 5)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = -5.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[connection signal="gui_input" from="Handles/Right" to="Handles" method="_on_right_gui_input"]
+[connection signal="gui_input" from="Handles/Bottom" to="Handles" method="_on_bottom_gui_input"]
+[connection signal="gui_input" from="Handles/Corner" to="Handles" method="_on_corner_gui_input"]
