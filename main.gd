@@ -25,3 +25,6 @@ func loggedIn():
 #	Vector.get_joined_rooms()
 	Vector.sync()
 	add_child(main_interface.instantiate())
+
+
+

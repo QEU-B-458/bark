@@ -11,8 +11,9 @@ config_version=5
 [application]
 
 config/name="bark"
-run/main_scene="res://main.tscn"
-config/features=PackedStringArray("4.1", "Forward Plus")
+config/description="a wonderful project"
+run/main_scene="res://main_matrix_client.tscn"
+config/features=PackedStringArray("4.2", "Forward Plus")
 boot_splash/bg_color=Color(0.294118, 0, 0.505882, 1)
 boot_splash/image="res://assets/images/t_pupper.png"
 boot_splash/fullsize=false
@@ -23,11 +24,20 @@ config/icon="res://assets/images/t_pupper.svg"
 Notify="*res://main/notify/notify.gd"
 Vector="*res://addons/vector/vector.gd"
 JsonViewerGlobals="*res://addons/json viewer/jsonViewerGlobals.gd"
+Values="*res://addons/gmui/scripts/observer/values.gd"
+VnodeHelper="*res://addons/gmui/scripts/vnode/vnode_helper.gd"
+TinyXmlParser="*res://addons/gmui/scripts/complie/tiny_xml_parser.gd"
+Patch="*res://addons/gmui/scripts/vnode/patch.gd"
 
 [display]
 
+window/size/viewport_width="1080"
+window/size/viewport_height="720"
+window/size/borderless=true
 window/subwindows/embed_subwindows=false
-window/handheld/orientation=5
+window/stretch/aspect="expand"
+window/stretch/scale_mode="integer"
+window/handheld/orientation=6
 
 [editor_plugins]
 
@@ -41,4 +51,5 @@ enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg")
 [rendering]
 
 renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true
 environment/defaults/default_clear_color=Color(0, 0, 0, 1)

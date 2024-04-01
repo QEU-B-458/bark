@@ -1,7 +1,7 @@
 extends Control
-@onready var homeserver = $Panel/VBoxContainer/homeserver
-@onready var username = $Panel/VBoxContainer/username
-@onready var password = $Panel/VBoxContainer/password
+@onready var homeserver = $Panel/GGVBox/homeserver
+@onready var username = $Panel/GGVBox/username
+@onready var password = $Panel/GGVBox/password
 @onready var button = $Panel/VBoxContainer/Button
 
 func _ready():

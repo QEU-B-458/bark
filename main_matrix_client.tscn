@@ -1,20 +1,30 @@
-[gd_scene load_steps=2 format=3 uid="uid://5v1gvjypqylk"]
+[gd_scene load_steps=11 format=3 uid="uid://5v1gvjypqylk"]
 
-[sub_resource type="GDScript" id="GDScript_el6ah"]
-resource_name = "Handles"
-script/source = "extends Control
+[ext_resource type="Script" path="res://main.gd" id="1_c4lat"]
+[ext_resource type="Script" path="res://addons/GameGUI/GGComponent.gd" id="1_k1ubf"]
+[ext_resource type="Script" path="res://Matrix-AIO/Handles/Handles.gd" id="1_ui8q1"]
+[ext_resource type="Script" path="res://main/user/login/login.gd" id="2_0riqg"]
+[ext_resource type="Texture2D" uid="uid://ddb21cw1bwrkd" path="res://assets/images/matrix-logo-white.svg" id="4_id2xj"]
+[ext_resource type="Script" path="res://addons/GameGUI/GGVBox.gd" id="5_c7cah"]
+[ext_resource type="Texture2D" uid="uid://bmxlkl04syyfm" path="res://addons/vector/logo.svg" id="5_ne121"]
+[ext_resource type="Texture2D" uid="uid://vhb17lce1ii8" path="res://assets/images/t_pupper.svg" id="6_garp7"]
 
+[sub_resource type="GDScript" id="GDScript_h75kd"]
+script/source = "extends ColorRect
 
-
-func _on_right_gui_input(event):
-	pass # Replace with function body.
-
-func _on_bottom_gui_input(event):
-	pass # Replace with function body.
-
-func _on_corner_gui_input(event):
-	pass # Replace with function body.
+func _ready():
+	var t = create_tween()
+	t.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO).tween_property(self,'color',Color(\"#40006b\"),4.0)
+	t.play()
 "
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0bdbd"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
 
 [node name="Main-Matrix-client" type="Control"]
 layout_mode = 3
@@ -35,9 +45,296 @@ grow_vertical = 2
 [node name="TopBar" type="PanelContainer" parent="layout"]
 layout_mode = 2
 
-[node name="Content" type="Control" parent="layout"]
-unique_name_in_owner = true
+[node name="GGComponent" type="Container" parent="." node_paths=PackedStringArray("reference_node")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_k1ubf")
+horizontal_mode = 4
+vertical_mode = 4
+layout_size = Vector2(1, 1)
+reference_node = NodePath("..")
+parameters = {
+"safe_area_bottom_margin": 0.0,
+"safe_area_left_margin": 0.0,
+"safe_area_right_margin": 0.0,
+"safe_area_top_margin": 0.0
+}
+
+[node name="main" type="Control" parent="GGComponent" groups=["main"]]
 layout_mode = 2
+script = ExtResource("1_c4lat")
+
+[node name="ColorRect" type="ColorRect" parent="GGComponent/main"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+script = SubResource("GDScript_h75kd")
+
+[node name="login" type="Control" parent="GGComponent/main"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_0riqg")
+
+[node name="createdBy" type="Control" parent="GGComponent/main/login"]
+layout_mode = 1
+anchor_left = 0.1
+anchor_top = 0.05
+anchor_right = 0.9
+anchor_bottom = 0.15
+grow_horizontal = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GGComponent/main/login/createdBy"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="GGComponent/main/login/createdBy/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 65
+text = "bark"
+
+[node name="Panel" type="Panel" parent="GGComponent/main/login"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.2
+anchor_right = 0.8
+anchor_bottom = 0.8
+grow_vertical = 2
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GGComponent/main/login/Panel"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -113.0
+offset_right = 100.0
+offset_bottom = 113.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="GGComponent/main/login/Panel/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "enter the matrix home server you wish to connect to "
+mouse_filter = 0
+mouse_default_cursor_shape = 16
+text = "homeserver:"
+
+[node name="homeserver" type="LineEdit" parent="GGComponent/main/login/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "matrix.pupper.dev"
+placeholder_text = "matrix.org"
+expand_to_text_length = true
+
+[node name="Label2" type="Label" parent="GGComponent/main/login/Panel/VBoxContainer"]
+layout_mode = 2
+text = "username:"
+
+[node name="username" type="LineEdit" parent="GGComponent/main/login/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "XXXmatrixuser360XXX"
+expand_to_text_length = true
+
+[node name="Label3" type="Label" parent="GGComponent/main/login/Panel/VBoxContainer"]
+layout_mode = 2
+text = "password:"
+
+[node name="password" type="LineEdit" parent="GGComponent/main/login/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "super secret text"
+expand_to_text_length = true
+secret = true
+
+[node name="Button" type="Button" parent="GGComponent/main/login/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Sign In"
+
+[node name="GGVBox" type="Container" parent="GGComponent/main/login/Panel"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_c7cah")
+parameters = {
+"safe_area_bottom_margin": 0.0,
+"safe_area_left_margin": 0.0,
+"safe_area_right_margin": 0.0,
+"safe_area_top_margin": 0.0
+}
+
+[node name="Label" type="Label" parent="GGComponent/main/login/Panel/GGVBox"]
+layout_mode = 2
+text = "homeserver:"
+vertical_alignment = 2
+
+[node name="homeserver" type="LineEdit" parent="GGComponent/main/login/Panel/GGVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "matrix.pupper.dev"
+placeholder_text = "matrix.org"
+expand_to_text_length = true
+
+[node name="Label2" type="Label" parent="GGComponent/main/login/Panel/GGVBox"]
+layout_mode = 2
+text = "username:"
+vertical_alignment = 2
+
+[node name="username" type="LineEdit" parent="GGComponent/main/login/Panel/GGVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "XXXmatrixuser360XXX"
+expand_to_text_length = true
+
+[node name="Label3" type="Label" parent="GGComponent/main/login/Panel/GGVBox"]
+layout_mode = 2
+text = "password:"
+
+[node name="password" type="LineEdit" parent="GGComponent/main/login/Panel/GGVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "super secret text"
+expand_to_text_length = true
+secret = true
+
+[node name="Button" type="Button" parent="GGComponent/main/login/Panel/GGVBox"]
+layout_mode = 2
+text = "Sign In"
+
+[node name="poweredBy" type="Control" parent="GGComponent/main/login"]
+layout_mode = 1
+anchor_left = 0.1
+anchor_top = 0.85
+anchor_right = 0.9
+anchor_bottom = 0.95
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GGComponent/main/login/poweredBy"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GGComponent/main/login/poweredBy/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="matrix" type="VBoxContainer" parent="GGComponent/main/login/poweredBy/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="LinkButton" type="LinkButton" parent="GGComponent/main/login/poweredBy/VBoxContainer/HBoxContainer/matrix"]
+layout_mode = 2
+size_flags_vertical = 3
+uri = "https://matrix.org"
+
+[node name="TextureRect" type="TextureRect" parent="GGComponent/main/login/poweredBy/VBoxContainer/HBoxContainer/matrix/LinkButton"]
+texture_filter = 3
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+texture = ExtResource("4_id2xj")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VSeparator" type="VSeparator" parent="GGComponent/main/login/poweredBy/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxFlat_0bdbd")
+
+[node name="vector" type="VBoxContainer" parent="GGComponent/main/login/poweredBy/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="LinkButton" type="LinkButton" parent="GGComponent/main/login/poweredBy/VBoxContainer/HBoxContainer/vector"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TextureRect" type="TextureRect" parent="GGComponent/main/login/poweredBy/VBoxContainer/HBoxContainer/vector/LinkButton"]
+texture_filter = 3
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+texture = ExtResource("5_ne121")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="VSeparator2" type="VSeparator" parent="GGComponent/main/login/poweredBy/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxFlat_0bdbd")
+
+[node name="pupperdev" type="VBoxContainer" parent="GGComponent/main/login/poweredBy/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="LinkButton" type="LinkButton" parent="GGComponent/main/login/poweredBy/VBoxContainer/HBoxContainer/pupperdev"]
+layout_mode = 2
+size_flags_vertical = 3
+uri = "https://pupper.dev"
+
+[node name="TextureRect" type="TextureRect" parent="GGComponent/main/login/poweredBy/VBoxContainer/HBoxContainer/pupperdev/LinkButton"]
+texture_filter = 3
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+texture = ExtResource("6_garp7")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="requests" type="Control" parent="GGComponent/main" groups=["requestParent"]]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="Handles" type="Control" parent="."]
 layout_mode = 1
@@ -47,7 +344,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = SubResource("GDScript_el6ah")
+script = ExtResource("1_ui8q1")
 
 [node name="Right" type="Control" parent="Handles"]
 custom_minimum_size = Vector2(5, 5)
@@ -81,7 +378,18 @@ offset_left = -5.0
 offset_top = -5.0
 grow_horizontal = 0
 grow_vertical = 0
+mouse_default_cursor_shape = 12
+
+[node name="ColorRect" type="ColorRect" parent="Handles/Corner"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [connection signal="gui_input" from="Handles/Right" to="Handles" method="_on_right_gui_input"]
 [connection signal="gui_input" from="Handles/Bottom" to="Handles" method="_on_bottom_gui_input"]
 [connection signal="gui_input" from="Handles/Corner" to="Handles" method="_on_corner_gui_input"]
+[connection signal="mouse_entered" from="Handles/Corner" to="Handles" method="_on_corner_mouse_entered"]
